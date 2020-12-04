@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Films
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Films</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <form>
+    <ion-input [(ngModel)]="newFilm.title" placeholder="Titre" name="title"></ion-input>
+    <ion-input [(ngModel)]="newFilm.dateSortie" type="Date" name="dateSorite" placeholder="Date"></ion-input>
+    <ion-input [(ngModel)]="newFilm.description" name="description" placeholder="Description"></ion-input>
+    <ion-img>
+      <ion-item *ngFor="let film of films">
+        <ion-thumbnail slot="start">
+          <ion-img src="./assets/img/{{1}}.jpg"></ion-img>
+        </ion-thumbnail>
+      </ion-item>
+    </ion-img>
+    <ion-button (click)="addFilm()">Ajouter</ion-button>
+  </form>
+
+  <div class="films">
+    <div class="film" *ngFor="let film of films; let i = index">
+      <div class="film-name" (click)="film.inUpdate = true" *ngIf="film.inUpdate !== true">{{film.title}}</div>
+      <div *ngIf="film.inUpdate === true">
+        <input [(ngModel)]="film.title"/>
+        <ion-button (click)="film.inUpdate = false">OK</ion-button>
+      </div>
+      <div class="film-date">{{film.dateSortie|date:'yyyy-m-d'}}</div>
+      <div class="film-description">{{film.description}}</div>
+      <ion-button color="danger" (click)="removeFilm(i)">Supprimer</ion-button>
+      <!-- <ion-button color="" (click)="updateFilm(i)">Modifier</ion-button> -->
+    </div>
+  </div>
+
+  <!-- <div class="films">
+    <div class="film" *ngFor="let film of films; let i = index">
+      <div class="film-name">{{film.title}}</div>
+      <div class="film-date">{{film.dateSortie|date:'yyyy-m-d'}}</div>
+      <div class="film-description">{{film.description}}</div>
+      <ion-button color="danger" (click)="updateFilm(i)">Moudifier</ion-button>
+    </div>
+  </div> -->
+
+</ion-content>
+
